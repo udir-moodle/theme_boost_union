@@ -41,6 +41,8 @@ $string['always'] = 'Always';
 $string['auto'] = 'Automatically';
 $string['bycapability'] = 'Controlled by capability';
 $string['nochange'] = 'No change';
+$string['show'] = 'Show';
+$string['hide'] = 'Hide';
 $string['forguestsonly'] = 'Only for guests and non-logged-in users';
 $string['showastext'] = 'Show as text';
 $string['showasbadge'] = 'Show as badge';
@@ -1012,7 +1014,11 @@ $string['scrollspysetting'] = 'Scroll-spy';
 $string['scrollspysetting_desc'] = 'With this setting, upon toggling edit mode on and off, the scroll position at where the user was when performing the toggle is preserved.';
 // ... ... Setting: Activity & section navigation
 $string['activitynavigationsetting'] = 'Activity & section navigation elements';
-$string['activitynavigationsetting_desc'] = 'With this setting, the elements to jump to the previous and next activity/resource as well as the pull down menu to jump to a distinct activity/resource become displayed. Furthermore, within courses using the \'one section per page\' mode, similar elements for the previous and next section are displayed as well. UI elements like this existed already on Boost in Moodle Core until Moodle 3.11, but were removed in 4.0. With Boost Union, you can bring them back.';
+$string['activitynavigationsetting_desc'] = 'With this setting, you can control the elements to jump to the previous and next activity/resource as well as the pull down menu to jump to a distinct activity/resource. UI elements like this existed already on Boost in Moodle Core until Moodle 3.11, but were removed in 4.0 in favour of the course index. With Boost Union, you can bring them back or hide them completely.<br />
+<br />
+\'No change\': The elements are displayed as Moodle core decides. Moodle core does not display them in course formats which use the course index (like the \'Custom sections\' and \'Weekly sections\' formats), but it still displays them in course formats which do not use the course index (like the \'Social\' format or third party course formats with a disabled course index) and on activity pages which are embedded in a frame.<br />
+\'Show\': The elements are displayed in all courses. Furthermore, within courses using the \'one section per page\' mode, similar elements for the previous and next section are displayed as well.<br />
+\'Hide\': The elements are hidden in all courses, even in courses where Moodle core would display them. Please note that course formats which render their own section navigation elements will still display them as these are not controlled by this setting.';
 
 // Settings: Blocks tab.
 $string['blockstab'] = 'Blocks';
@@ -1197,6 +1203,9 @@ $string['footnotesetting_desc'] = 'Whatever you add to this textarea will be dis
 // ... ... Setting: Page layouts for footnote.
 $string['footnotelayouts'] = 'Page layouts for footnote';
 $string['footnotelayouts_desc'] = 'With this setting, you can control on which page layouts the footnote is shown. If no layout is selected, the footnote will not be shown on any layout.';
+// ... ... Setting: Hide footnote when printing.
+$string['footnotehideonprint'] = 'Hide footnote when printing';
+$string['footnotehideonprint_desc'] = 'With this setting, you can hide the footnote when a page is printed. This can be useful if the footnote is quite large or if it only contains links which are not helpful on paper. The footnote will still be shown on screen as usual.';
 // ... Section: Footer.
 $string['footerheading'] = 'Footer';
 // ... ... Setting: Enable footer.
@@ -1988,9 +1997,9 @@ $string['smartmenusmenuitememail_cc_help'] = 'Optional carbon-copy address(es), 
 $string['smartmenusmenuitememail_bcc'] = 'Bcc';
 $string['smartmenusmenuitememail_bcc_help'] = 'Optional blind carbon-copy address(es), separate multiple addresses with commas. These are added to the mailto link as a Bcc header.';
 $string['smartmenusmenuitememail_subject'] = 'Subject';
-$string['smartmenusmenuitememail_subject_help'] = 'Optional default subject line for the composed message. It is URL-encoded in the mailto link.';
+$string['smartmenusmenuitememail_subject_help'] = 'Optional default subject line for the composed message. It is URL-encoded in the mailto link. For the <em>Mailto (with placeholders)</em> type, you may include placeholders which will be replaced with context-specific values at render time.';
 $string['smartmenusmenuitememail_body'] = 'Message body';
-$string['smartmenusmenuitememail_body_help'] = 'Optional default message body. It is URL-encoded in the mailto link (including line breaks).';
+$string['smartmenusmenuitememail_body_help'] = 'Optional default message body. It is URL-encoded in the mailto link (including line breaks). For the <em>Mailto (with placeholders)</em> type, you may include placeholders which will be replaced with context-specific values at render time, for example to add a link to the currently viewed course with the {courseurl} placeholder.';
 $string['smartmenusmenuitemhidehiddencourses'] = 'Hide hidden courses';
 $string['smartmenusmenuitemhiddencoursessorting_help'] = 'Choose how hidden courses should be sorted in the course list of the dynamic courses menu items.';
 $string['smartmenusmenuitemhiddencoursessorting'] = 'Hidden courses sorting';
@@ -2073,14 +2082,15 @@ $string['smartmenusmenuitemtitle_help'] = 'The title of the menu. This will be u
 $string['smartmenusmenuitemtooltip'] = 'Tooltip';
 $string['smartmenusmenuitemtooltip_help'] = 'The tooltip which will be displayed when the user hovers over the menu item.';
 $string['smartmenusmenuitemtype'] = 'Menu item type';
-$string['smartmenusmenuitemtype_help'] = '<p>Select the type of menu item you want to create, choosing between static, mailto, heading, moodle documentation, dynamic courses, divider, static with placeholders, and heading with placeholders.</p><ul><li>Static: A static menu item is simply a link to a fixed URL that does not change.</li><li>Mailto: A mailto menu item opens the user\'s default email client to compose a message. You can set To, optional Cc and Bcc, and optional subject and message body; each address field can list multiple addresses separated by commas.</li><li>Heading: A heading menu item is used to group related menu items together under a common heading. It does not have a link and is not clickable.</li><li>Separator: A divider menu item displays a horizontal line in the menu to visually separate groups of menu items.</li><li>Moodle documentation: A Moodle documentation menu item is used to link to the corresponding MoodleDocs article, similar to the MoodleDocs link which is located in the Moodle footer (questionmark icon).</li><li>Dynamic courses: A dynamic courses menu item is used to display a list of courses based on certain criteria, such as course category, course enrolment role, course completion status or date range. The content displayed in a dynamic courses menu item will update automatically as the criteria changes.</li><li>Static (with placeholders): Like the static type, but the title and URL can contain placeholders which are replaced with user-, course- and page-specific values at render time. These items are never cached, so use them only if you plan to use placeholders.</li><li>Heading (with placeholders): Like the heading type, but the title can contain placeholders. These items are never cached.</li></ul>';
+$string['smartmenusmenuitemtype_help'] = '<p>Select the type of menu item you want to create, choosing between static, mailto, heading, moodle documentation, dynamic courses, divider, static with placeholders, mailto with placeholders, and heading with placeholders.</p><ul><li>Static: A static menu item is simply a link to a fixed URL that does not change.</li><li>Mailto: A mailto menu item opens the user\'s default email client to compose a message. You can set To, optional Cc and Bcc, and optional subject and message body; each address field can list multiple addresses separated by commas.</li><li>Heading: A heading menu item is used to group related menu items together under a common heading. It does not have a link and is not clickable.</li><li>Separator: A divider menu item displays a horizontal line in the menu to visually separate groups of menu items.</li><li>Moodle documentation: A Moodle documentation menu item is used to link to the corresponding MoodleDocs article, similar to the MoodleDocs link which is located in the Moodle footer (questionmark icon).</li><li>Dynamic courses: A dynamic courses menu item is used to display a list of courses based on certain criteria, such as course category, course enrolment role, course completion status or date range. The content displayed in a dynamic courses menu item will update automatically as the criteria changes.</li><li>Static (with placeholders): Like the static type, but the title and URL can contain placeholders which are replaced with user-, course- and page-specific values at render time. These items are never cached, so use them only if you plan to use placeholders.</li><li>Mailto (with placeholders): Like the mailto type, but the title, the subject and the message body can contain placeholders which are replaced with user-, course- and page-specific values at render time. These items are never cached, so use them only if you plan to use placeholders.</li><li>Heading (with placeholders): Like the heading type, but the title can contain placeholders. These items are never cached.</li></ul>';
 $string['smartmenusmenuitemplaceholdersinfoheader'] = 'Available placeholders';
-$string['smartmenusmenuitemplaceholdersinfo'] = '<p>This is a smart menu item type which supports placeholders. The following placeholders can be used in the title and URL fields. They will be replaced with context-specific values at render time.</p><ul><li><code>{courseid}</code> &ndash; The current course\'s internal ID</li><li><code>{coursefullname}</code> &ndash; The current course\'s full name</li><li><code>{courseshortname}</code> &ndash; The current course\'s shortname</li><li><code>{editingtoggle}</code> &ndash; The value \'on\' or \'off\' to toggle edit mode (for use in URLs)</li><li><code>{userid}</code> &ndash; The logged-in user\'s internal ID</li><li><code>{userusername}</code> &ndash; The logged-in user\'s username</li><li><code>{userfullname}</code> &ndash; The logged-in user\'s full name</li><li><code>{pagecontextid}</code> &ndash; The current page\'s context ID</li><li><code>{pagepath}</code> &ndash; The current page\'s URL path</li><li><code>{sesskey}</code> &ndash; The current session key (for use in secured URLs)</li></ul>';
+$string['smartmenusmenuitemplaceholdersinfo'] = '<p>This is a smart menu item type which supports placeholders. The following placeholders can be used in the title and URL fields (for static items) or in the title, subject and message body fields (for mailto items). They will be replaced with context-specific values at render time.</p><ul><li><code>{courseid}</code> &ndash; The current course\'s internal ID</li><li><code>{coursefullname}</code> &ndash; The current course\'s full name</li><li><code>{courseshortname}</code> &ndash; The current course\'s shortname</li><li><code>{courseurl}</code> &ndash; The current course\'s full URL</li><li><code>{editingtoggle}</code> &ndash; The value \'on\' or \'off\' to toggle edit mode (for use in URLs)</li><li><code>{userid}</code> &ndash; The logged-in user\'s internal ID</li><li><code>{userusername}</code> &ndash; The logged-in user\'s username</li><li><code>{userfullname}</code> &ndash; The logged-in user\'s full name</li><li><code>{pagecontextid}</code> &ndash; The current page\'s context ID</li><li><code>{pagepath}</code> &ndash; The current page\'s URL path</li><li><code>{pageurl}</code> &ndash; The current page\'s full URL</li><li><code>{sesskey}</code> &ndash; The current session key (for use in secured URLs)</li></ul>';
 $string['smartmenusmenuitemtypedocs'] = 'Moodle documentation';
 $string['smartmenusmenuitemtypedynamiccourses'] = 'Dynamic courses';
 $string['smartmenusmenuitemtypeheading'] = 'Heading';
 $string['smartmenusmenuitemtypedivider'] = 'Divider';
 $string['smartmenusmenuitemtypemailto'] = 'Mailto';
+$string['smartmenusmenuitemtypemailtowithplaceholders'] = 'Mailto (with placeholders)';
 $string['smartmenusmenuitemtypestatic'] = 'Static';
 $string['smartmenusmenuitemtypestaticwithplaceholders'] = 'Static (with placeholders)';
 $string['smartmenusmenuitemtypeheadingwithplaceholders'] = 'Heading (with placeholders)';
@@ -2258,6 +2268,7 @@ $string['task_purgecache'] = 'Purge theme cache';
 
 // Checks API: Recommendations.
 $string['checkrecommendations'] = 'Boost Union recommendations';
+$string['checkrecommendationsinfo'] = 'At least one Boost Union recommendation needs attention. However, as Boost Union is not the active theme on this site, this is just reported as information.';
 $string['checkrecommendationsok'] = 'No Boost Union recommendations currently need attention.';
 $string['checkrecommendationswarning'] = 'At least one Boost Union recommendation needs attention.';
 $string['checkrecommendationsdetails'] = 'Review recommendations on the <a href="{$a->url}">Recommendations</a> page.';

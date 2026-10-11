@@ -4,6 +4,18 @@ moodle-theme_boost_union
 Changes
 -------
 
+### v5.2-r12
+
+* 2026-10-08 - Bugfix: Fix the database default of the smart menu type field which was set to the card type instead of the list type, resolves #1431
+* 2026-10-08 - Tests: Set the theme preset directly instead of saving it in the settings form in the preset inheritance Behat test as the form validation might race with the following steps
+* 2026-10-07 - Bugfix: Correctly escape special characters in static page titles, resolves #1382
+* 2026-10-07 - Improvement: Add "Course URL" and "Page URL" as placeholder for smart menu items, resolves #1346
+* 2026-10-07 - Improvement: Allow placeholders in mailto links within the smart menu items, resolves #1346
+* 2026-10-07 - Improvement: Add a setting to hide the footnote when a page is printed, resolves #1381
+* 2026-10-07 - Improvement: Report the Boost Union recommendations check only as info instead of warning on the Checks API status page if Boost Union is not the active theme, resolves #1387
+* 2026-10-07 - Improvement: Add a 'Hide' option to the activity & section navigation elements setting to hide the activity navigation also in course formats which do not use the course index, and clarify the setting description, resolves #1403
+* 2026-10-06 - Tests: Stabilize the footer telemetry trace ID test which failed sporadically on Github actions, resolves #1423
+
 ### v5.2-r11
 
 * 2026-10-05 - Tests: Fix stylelint issue for theme/boost_union/tests/fixtures/extscss-invalid.scss, resolves #695

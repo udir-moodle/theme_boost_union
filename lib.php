@@ -237,6 +237,11 @@ define('THEME_BOOST_UNION_SETTING_STARREDCOURSES_LINKTARGET_DASHBOARD', 'dashboa
 define('THEME_BOOST_UNION_SETTING_GUESTACCESSHINT_WITHOUTPASSWORD', 'withoutpassword');
 define('THEME_BOOST_UNION_SETTING_GUESTACCESSHINT_ALWAYS', 'always');
 
+// The values 'yes' and 'no' of the activity navigation setting are kept from the time when it was a yes/no setting.
+define('THEME_BOOST_UNION_SETTING_ACTIVITYNAVIGATION_SHOW', 'yes');
+define('THEME_BOOST_UNION_SETTING_ACTIVITYNAVIGATION_NOCHANGE', 'no');
+define('THEME_BOOST_UNION_SETTING_ACTIVITYNAVIGATION_HIDE', 'hide');
+
 define('THEME_BOOST_UNION_SETTING_COURSEPROGRESSSTYLE_PERCENTAGE', 'percentage');
 define('THEME_BOOST_UNION_SETTING_COURSEPROGRESSSTYLE_BAR', 'bar');
 
@@ -284,6 +289,26 @@ function theme_boost_union_is_active_theme(): bool {
     }
 
     return false;
+}
+
+/**
+ * Helper function to check if Boost Union or a child theme of Boost Union is the site theme.
+ * In contrast to theme_boost_union_is_active_theme(), this does not rely on $PAGE, as it is also needed on the CLI
+ * (e.g. when the Checks API is used by monitoring systems) where $PAGE is not set up and child themes would not be recognized.
+ *
+ * @return bool
+ */
+function theme_boost_union_is_site_theme(): bool {
+    global $CFG;
+
+    // If Boost Union is the site theme, we are done.
+    if ($CFG->theme === 'boost_union') {
+        return true;
+    }
+
+    // Otherwise, check if the site theme is a child theme of Boost Union.
+    $themeconfig = \core\output\theme_config::load($CFG->theme);
+    return in_array('boost_union', $themeconfig->parents);
 }
 
 /**

@@ -2151,13 +2151,37 @@ class core_renderer extends core_renderer_intermediate {
      * @return string|null
      */
     public function telemetry_traceid(): ?string {
-        /* If we are running Behat. */
+        // If we are running Behat.
         if (defined('BEHAT_SITE_RUNNING')) {
-            /* Fake a trace ID so that we can be sure that an ID exists. */
-            return random_bytes(16);
+            // Fake a trace ID so that we can be sure that an ID exists.
+            // The real OpenTelemetry trace ID is a 32 character hex string, so the fake ID is built in the same format.
+            // The raw bytes of random_bytes() must not be used directly as the trace ID is output unescaped in the
+            // footer template. A raw "<" byte followed by a letter would open a HTML tag which swallows the
+            // "Telemetry trace" link and makes the footer Behat tests fail sporadically.
+            return bin2hex(random_bytes(16));
         }
 
         // Otherwise, return the parent function.
         return parent::telemetry_traceid();
+    }
+
+    /**
+     * Returns standard navigation between activities in a course.
+     *
+     * This renderer function is copied and modified from /lib/classes/output/core_renderer.php
+     *
+     * @return string the navigation HTML.
+     */
+    public function activity_navigation() {
+        // If the activity navigation should be hidden.
+        // Moodle core would show the navigation in course formats which do not use the course index
+        // or on pages with the 'frametop' layout, regardless of the theme.
+        $activitynavigation = get_config('theme_boost_union', 'activitynavigation');
+        if ($activitynavigation == THEME_BOOST_UNION_SETTING_ACTIVITYNAVIGATION_HIDE) {
+            return '';
+        }
+
+        // Otherwise, return the parent function.
+        return parent::activity_navigation();
     }
 }
