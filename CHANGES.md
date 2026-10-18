@@ -4,6 +4,19 @@ moodle-theme_boost_union
 Changes
 -------
 
+### v5.2-r13
+
+* 2026-10-15 - Tests: Use the plain textarea editor in the Behat scenario which verifies that flavour SCSS is applied immediately in theme designer mode, as the TinyMCE editor CSS compilation became very slow in Moodle 5.3 (MDL-68037) and made the scenario run into the pending JS timeout of Behat on Github actions, resolves #1443
+* 2026-10-15 - Bugfix: Show the expanded search form in the navbar in the configured navbar tint instead of the primary brand color, resolves #1441
+* 2026-10-14 - Tests: Remove the cache purging workaround from the info banner Behat tests as the underlying problem was a Moodle core bug (MDL-83757) which has been fixed in the meantime and all Boost Union stable releases require those Moodle core versions, resolves #734
+* 2026-10-14 - Improvement: Validate that the end time of a time-based info banner is not before its start time when the settings are saved, resolves #97
+* 2026-10-13 - Improvement: Rework the admin_setting_configdatetime class which is used for the info banner start and end time settings to use the mform date_time_selector widget from Moodle core instead of a custom implementation, resolves #97
+* 2026-10-13 - Bugfix: The header block region is not aligned properly if outside-left and outside-right have unequal widths, resolves #252
+* 2026-10-13 - Bugfix: Let clicks on the slider's caption box pass through to the linked background image as the caption box's paddings created an unclickable area on the image, resolves #1196
+* 2026-10-11 - Improvement: Remove the precompiled CSS callback which just returned Boost Core's fallback CSS file another time as Moodle core already adds this file from Boost's own callback in case of a SCSS compilation error, resolves #89
+* 2026-10-10 - Bugfix: Validate the block region width settings for the 'Outside (left)' and 'Outside (right)' regions as invalid values would break the SCSS compilation, resolves #1433
+* 2026-10-10 - Bugfix: Anchor the regular expressions which validate the width settings properly as they accepted values like '10%)' which would break the SCSS compilation, resolves #1433
+
 ### v5.2-r12
 
 * 2026-10-08 - Bugfix: Fix the database default of the smart menu type field which was set to the card type instead of the list type, resolves #1431
